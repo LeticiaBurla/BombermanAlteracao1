@@ -45,7 +45,6 @@ public class GameController {
                 if(eTemp.isbMortal()) {
                     bBomberman.die();
                     if(bBomberman.getLives() <= 0 ){
-                        System.out.println("entrei");
                         //bomberman morre. O jogo deve terminar
                         //Como terminar o o jogo?
                         System.exit(0);
@@ -163,13 +162,16 @@ public class GameController {
     }
 
     /**
-     * Create a bomb explosion
-     * @param bomb bomb to explode
-     */
+     * Check if we can explode the position p or
+     * if there is something unexplosable there
+     * @param elements list of all elements
+     * @param p position to check
+     * @return true if ok, false if not
+     * */
     public boolean isExplosable(ArrayList<Element> elements, Position p){
         for(Element e: elements){
             if(e.getPosition().equals(p)){
-                if(!e.toString().equals("Brick")){
+                if(e.toString().equals("Wall")){
                     return false;
                 }
             }
@@ -177,6 +179,12 @@ public class GameController {
         return true;
     }
 
+
+
+    /**
+     * Create a bomb explosion
+     * @param bomb bomb to explode
+     */
     public void explode(Bomb bomb, ArrayList<Element> elements){
 
         if(bomb.getCountDown()>= Consts.TIMER_BOMB){
